@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Show eXtra Headers",
+    "description": "Show extra headers for current email message",
+    "version": "1.0",
+    "author": "Daniel-Constantin Mierla <miconda@gmail.com>",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "show-extra-headers@miconda.eu",
+            "strict_min_version": "128.0"
+        }
+    },
+    "message_display_action": {
+        "default_popup": "messagePopup/popup.html",
+        "default_title": "X-Hdrs",
+        "default_icon": "images/xhlist-32px.png"
+    },
+    "permissions": [
+        "messagesRead"
+    ],
+    "icons": {
+        "64": "images/xhlist-64px.png",
+        "32": "images/xhlist-32px.png",
+        "16": "images/xhlist-16px.png"
+    }
+}
