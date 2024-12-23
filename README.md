@@ -23,6 +23,8 @@ Screenshot with the extension activated and the `X-Hdrs` button pressed.
 
 ## Installation
 
+The extension requires at least `Thunderbird v128.0`.
+
 ### Temporarily Install From Git Repository
 
 Steps for temporarily loading the extension.
