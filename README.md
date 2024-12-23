@@ -3,7 +3,7 @@
 ## Overview
 
 Show quickly extra headers for current message via a popup view. The button
-appears on the toolbar at the top of the message view.
+is named `X-Hdrs` and appears on the toolbar at the top of the message view.
 
 The headers that are shown:
 
@@ -14,6 +14,12 @@ The headers that are shown:
 
 Not all headers are present in a message, being a matter of the email client
 and SMTP servers on the path.
+
+### Screenshot
+
+Screenshot with the extension activated and the `X-Hdrs` button pressed.
+
+![Thunderbird Show Extra Headers](https://github.com/user-attachments/assets/6aac6046-b0da-44f8-8dec-a65ce12e39d5)
 
 ## Installation
 
