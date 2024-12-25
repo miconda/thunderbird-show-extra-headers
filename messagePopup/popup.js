@@ -45,7 +45,8 @@ if(archivedat.length > 0) {
 	document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
 			+ archivedat + "\">" + archivedat + "</a>";
 } else {
-	document.getElementById("ArchivedAtVal").textContent = "none";
+	document.getElementById("ArchivedAtName").style.display = "none";
+	document.getElementById("ArchivedAtVal").style.display = "none";
 }
 
 let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
@@ -53,9 +54,20 @@ if(xmailfrom.length > 0) {
 	document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
 			+ xmailfrom + "\">" + xmailfrom + "</a>";
 } else {
-	document.getElementById("XMailFromVal").textContent = "none";
+	document.getElementById("XMailFromName").style.display = "none";
+	document.getElementById("XMailFromVal").style.display = "none";
 }
 
 document.getElementById("Received0Val").textContent = full.headers.received[0];
-document.getElementById("Received1Val").textContent = full.headers.received[1];
-document.getElementById("Received2Val").textContent = full.headers.received[2];
+if(full.headers.received.length > 1) {
+	document.getElementById("Received1Val").textContent = full.headers.received[1];
+} else {
+	document.getElementById("Received1Name").style.display = "none";
+	document.getElementById("Received1Val").style.display = "none";
+}
+if(full.headers.received.length > 2) {
+	document.getElementById("Received2Val").textContent = full.headers.received[2];
+} else {
+	document.getElementById("Received2Name").style.display = "none";
+	document.getElementById("Received2Val").style.display = "none";
+}
