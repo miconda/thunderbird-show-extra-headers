@@ -58,6 +58,14 @@ if(xmailfrom.length > 0) {
 	document.getElementById("XMailFromVal").style.display = "none";
 }
 
+let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
+if(xmailer.length > 0) {
+	document.getElementById("XMailerVal").textContent = xmailer;
+} else {
+	document.getElementById("XMailerName").style.display = "none";
+	document.getElementById("XMailerVal").style.display = "none";
+}
+
 document.getElementById("Received0Val").textContent = full.headers.received[0];
 if(full.headers.received.length > 1) {
 	document.getElementById("Received1Val").textContent = full.headers.received[1];
