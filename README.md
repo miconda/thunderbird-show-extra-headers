@@ -9,6 +9,7 @@ The headers that are shown:
 
 * `Envelope-To` or `Delivered-To` - the target address for the message
 * `X-MailFrom` - the sender of the message
+* `X-Mailer` - the application that sent the message
 * `Archived-At` - the link to the mailing list archive for the message
 * `Received` - the first three `Received` headers
 
