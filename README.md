@@ -49,7 +49,8 @@ This installs the add-on for the current session only.
 Ideas for the future (no commitment to be implemented):
 
 * [ ] configuration page for the list of the headers to be shown
-* [ ] do not show headers that are not in the message
+* [x] do not show headers that are not in the message
+* [ ] publish it to Thunderbird extensions repository
 
 Contributions are welcome, use pull requests to propose them.
 
