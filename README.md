@@ -8,9 +8,9 @@ is named `X-Hdrs` and appears on the toolbar at the top of the message view.
 The headers that are shown:
 
 * `Envelope-To` or `Delivered-To` - the target address for the message
-* `X-MailFrom` - the sender of the message
+* `X-MailFrom` - the sender of the message (link)
 * `X-Mailer` - the application that sent the message
-* `Archived-At` - the link to the mailing list archive for the message
+* `Archived-At` - the link to the mailing list archive for the message (link)
 * `Received` - the first three `Received` headers
 
 Not all headers are present in a message, being a matter of the email client
@@ -48,11 +48,12 @@ This installs the add-on for the current session only.
 
 Ideas for the future (no commitment to be implemented):
 
-* [ ] configuration page for the list of the headers to be shown
 * [x] do not show headers that are not in the message
-* [ ] publish it to Thunderbird extensions repository
+* [ ] configuration page for the list of the headers to be shown
 
-Contributions are welcome, use pull requests to propose them.
+Contributions are welcome, use pull requests to propose them:
+
+* https://github.com/miconda/thunderbird-show-extra-headers/pulls
 
 ## License
 
