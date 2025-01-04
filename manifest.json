@@ -15,8 +15,19 @@
         "default_title": "X-Hdrs",
         "default_icon": "images/xhlist-32px.png"
     },
+    "options_ui": {
+        "page": "optionsUI/options.html",
+        "open_in_tab": false,
+        "browser_style": true
+    },
+    "background": {
+        "scripts": [
+          "background.js"
+        ]
+    },
     "permissions": [
-        "messagesRead"
+        "messagesRead",
+        "storage"
     ],
     "icons": {
         "64": "images/xhlist-64px.png",
