@@ -1,3 +1,3 @@
-browser.browserAction.onClicked.addListener(() => {
-    browser.runtime.openOptionsPage();
-});
+//browser.browserAction.onClicked.addListener(() => {
+//    browser.runtime.openOptionsPage();
+//});
