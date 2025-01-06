@@ -28,8 +28,8 @@ let message = await messenger.messageDisplay.getDisplayedMessage(tabs[0].id);
 let full = await messenger.messages.getFull(message.id);
 
 // - debugging the email message content
-let str = JSON.stringify(full, null, 4);
-console.log(str);
+//let str = JSON.stringify(full, null, 4);
+//console.log(str);
 
 let envelopeto = getHeaderIfExists(full.headers, "envelope-to", 0, 0);
 if((envelopeto.length == 0) && ("delivered-to" in full.headers)) {
@@ -66,16 +66,31 @@ if(xmailer.length > 0) {
 	document.getElementById("XMailerVal").style.display = "none";
 }
 
-document.getElementById("Received0Val").textContent = full.headers.received[0];
-if(full.headers.received.length > 1) {
-	document.getElementById("Received1Val").textContent = full.headers.received[1];
-} else {
-	document.getElementById("Received1Name").style.display = "none";
-	document.getElementById("Received1Val").style.display = "none";
+let rcvCount = 3;
+let rcvCountOpts = await browser.storage.sync.get('xhdr_received_count');
+if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
+	rcvCount = Number(rcvCountOpts["xhdr_received_count"]);
 }
-if(full.headers.received.length > 2) {
-	document.getElementById("Received2Val").textContent = full.headers.received[2];
-} else {
-	document.getElementById("Received2Name").style.display = "none";
-	document.getElementById("Received2Val").style.display = "none";
+
+// let str = JSON.stringify(rcvCountOpts, null, 4);
+// console.log(str);
+// console.log("=== option - received count: " + rcvCount);
+
+if(rcvCount > full.headers.received.length) {
+	rcvCount = full.headers.received.length;
+}
+if(rcvCount > 6) {
+	rcvCount = 6;
+}
+
+let i = 0;
+for (i = 0; i < rcvCount; i++) {
+	let fieldId = "Received" + i;
+	document.getElementById(fieldId + "Val").textContent = full.headers.received[i];
+}
+
+for (; i < 6; i++) {
+	let fieldId = "Received" + i;
+	document.getElementById(fieldId + "Name").style.display = "none";
+	document.getElementById(fieldId + "Val").style.display = "none";
 }
