@@ -85,12 +85,8 @@ if(rcvCount > 6) {
 
 let i = 0;
 for (i = 0; i < rcvCount; i++) {
-	let fieldId = "Received" + i;
-	document.getElementById(fieldId + "Val").textContent = full.headers.received[i];
-}
-
-for (; i < 6; i++) {
-	let fieldId = "Received" + i;
-	document.getElementById(fieldId + "Name").style.display = "none";
-	document.getElementById(fieldId + "Val").style.display = "none";
+	document.getElementById("ContainerVal").innerHTML +=
+		"        <div id=\"Received" + i + "Name\" class=\"header\">Received[" + i + "]:</div>\n"
+		+ "        <div id=\"Received" + i + "Val\" class=\"content\">"
+		+ full.headers.received[i] + "</div>\n";
 }
