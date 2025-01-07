@@ -79,9 +79,6 @@ if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
 if(rcvCount > full.headers.received.length) {
 	rcvCount = full.headers.received.length;
 }
-if(rcvCount > 6) {
-	rcvCount = 6;
-}
 
 let i = 0;
 for (i = 0; i < rcvCount; i++) {
