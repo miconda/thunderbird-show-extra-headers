@@ -1,3 +1,24 @@
+/**
+ * Popup window to show the extra headers
+ */
+
+/**
+ * @param {*} obj - the object to log
+ * @param {*} name - the name of the object
+ */
+function logObj(obj, name)
+{
+	let str = JSON.stringify(obj, null, 4);
+	console.log("--- object[" + name + "]: " + str);
+}
+
+/**
+ * @param {*} hlist - headers list
+ * @param {*} hname - header name
+ * @param {*} idx - index of the header
+ * @param {*} mode - if is set to 1, remove enclosing angle brackets
+ * @returns header value
+ */
 function getHeaderIfExists(hlist, hname, idx, mode)
 {
 	let hval = "";
@@ -28,8 +49,7 @@ let message = await messenger.messageDisplay.getDisplayedMessage(tabs[0].id);
 let full = await messenger.messages.getFull(message.id);
 
 // - debugging the email message content
-//let str = JSON.stringify(full, null, 4);
-//console.log(str);
+// logObj(full, "message")
 
 let envelopeto = getHeaderIfExists(full.headers, "envelope-to", 0, 0);
 if((envelopeto.length == 0) && ("delivered-to" in full.headers)) {
@@ -72,9 +92,8 @@ if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
 	rcvCount = Number(rcvCountOpts["xhdr_received_count"]);
 }
 
-// let str = JSON.stringify(rcvCountOpts, null, 4);
-// console.log(str);
-// console.log("=== option - received count: " + rcvCount);
+// logObj(rcvCountOpts, "rcvCountOpts")
+// console.log("--- option - received count: " + rcvCount);
 
 if(rcvCount > full.headers.received.length) {
 	rcvCount = full.headers.received.length;
