@@ -39,8 +39,8 @@ git clone https://github.com/miconda/thunderbird-show-extra-headers
 Open up the `Add-ons Manager` from the three-bars menu, select `Extensions`
 on the left-hand side and click the gear to select `Debug Add-ons`.
 
-Click on the `Load Temporary Add-on...` button, select `the manifest.json` file
-from within the `thunderbird-show-extra-headers` project folder.
+Click on the `Load Temporary Add-on...` button, select the `manifest.json` file
+from within the `thunderbird-show-extra-headers/src/` project folder.
 
 This installs the add-on for the current session only.
 
