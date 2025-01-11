@@ -11,7 +11,7 @@ The headers that are shown:
 * `X-MailFrom` - the sender of the message (link)
 * `X-Mailer` - the application that sent the message
 * `Archived-At` - the link to the mailing list archive for the message (link)
-* `Received` - the first three `Received` headers
+* `Received` - the first `Received` headers (number configurable, default three)
 
 Not all headers are present in a message, being a matter of the email client
 and SMTP servers on the path.
@@ -42,7 +42,14 @@ on the left-hand side and click the gear to select `Debug Add-ons`.
 Click on the `Load Temporary Add-on...` button, select the `manifest.json` file
 from within the `thunderbird-show-extra-headers/src/` project folder.
 
-This installs the add-on for the current session only.
+This installs the add-on for the current session only, upon Thunderbird restart
+the extension has to be loaded again.
+
+## Usage
+
+When installed, a new button named `H-Hdrs` appears in the buttons list at the
+top of the `Message Pane`. Clicking on it shows the pop up  with extra headers
+for the current message.
 
 ## To-Do
 
