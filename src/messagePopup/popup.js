@@ -78,16 +78,29 @@ if(xmailfrom.length > 0) {
 	document.getElementById("XMailFromVal").style.display = "none";
 }
 
-let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
-if(xmailer.length > 0) {
-	document.getElementById("XMailerVal").textContent = xmailer;
+let rcvXMailerHide = false;
+let rcvXMailerHideOpts = await browser.storage.sync.get("xhdr_x_mailer_hide");
+if(rcvXMailerHideOpts && ("xhdr_x_mailer_hide" in rcvXMailerHideOpts)) {
+	rcvXMailerHide = rcvXMailerHideOpts["xhdr_x_mailer_hide"];
+}
+// logObj(rcvXMailerHideOpts, "rcvXMailerHideOpts")
+// console.log("--- option - rcvXMailerHide: " + rcvXMailerHide);
+
+if (rcvXMailerHide == false) {
+	let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
+	if(xmailer.length > 0) {
+		document.getElementById("XMailerVal").textContent = xmailer;
+	} else {
+		document.getElementById("XMailerName").style.display = "none";
+		document.getElementById("XMailerVal").style.display = "none";
+	}
 } else {
 	document.getElementById("XMailerName").style.display = "none";
 	document.getElementById("XMailerVal").style.display = "none";
 }
 
 let rcvCount = 3;
-let rcvCountOpts = await browser.storage.sync.get('xhdr_received_count');
+let rcvCountOpts = await browser.storage.sync.get("xhdr_received_count");
 if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
 	rcvCount = Number(rcvCountOpts["xhdr_received_count"]);
 }
