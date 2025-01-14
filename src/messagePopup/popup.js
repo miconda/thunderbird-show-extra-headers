@@ -35,87 +35,102 @@ function getHeaderIfExists(hlist, hname, idx, mode)
 	return hval;
 }
 
-// The user clicked our button, get the active tab in the current window using
-// the tabs API.
-let tabs = await messenger.tabs.query({ active: true, currentWindow: true });
+async function showXHeaders()
+{
+	// The user clicked our button, get the active tab in the current window using
+	// the tabs API.
+	let tabs = await messenger.tabs.query({ active: true, currentWindow: true });
 
-// Get the message currently displayed in the active tab, using the
-// messageDisplay API. Note: This needs the messagesRead permission.
-// The returned message is a MessageHeader object with the most relevant
-// information.
-let message = await messenger.messageDisplay.getDisplayedMessage(tabs[0].id);
+	// Get the message currently displayed in the active tab, using the
+	// messageDisplay API. Note: This needs the messagesRead permission.
+	// The returned message is a MessageHeader object with the most relevant
+	// information.
+	let message = await messenger.messageDisplay.getDisplayedMessage(tabs[0].id);
 
-// Request the full message to access its full set of headers.
-let full = await messenger.messages.getFull(message.id);
+	// Request the full message to access its full set of headers.
+	let full = await messenger.messages.getFull(message.id);
 
-// - debugging the email message content
-// logObj(full, "message")
+	// - debugging the email message content
+	// logObj(full, "message")
 
-let envelopeto = getHeaderIfExists(full.headers, "envelope-to", 0, 0);
-if((envelopeto.length == 0) && ("delivered-to" in full.headers)) {
-	envelopeto = getHeaderIfExists(full.headers, "delivered-to", 0, 0);
-	if(envelopeto.length > 0) {
-		document.getElementById("EnvelopeToName").textContent = "Delivered-To";
+	let envelopeto = getHeaderIfExists(full.headers, "envelope-to", 0, 0);
+	if((envelopeto.length == 0) && ("delivered-to" in full.headers)) {
+		envelopeto = getHeaderIfExists(full.headers, "delivered-to", 0, 0);
+		if(envelopeto.length > 0) {
+			document.getElementById("EnvelopeToName").textContent = "Delivered-To";
+		}
 	}
-}
-document.getElementById("EnvelopeToVal").textContent = envelopeto;
+	document.getElementById("EnvelopeToVal").textContent = envelopeto;
 
-let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
-if(archivedat.length > 0) {
-	document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
-			+ archivedat + "\">" + archivedat + "</a>";
-} else {
-	document.getElementById("ArchivedAtName").style.display = "none";
-	document.getElementById("ArchivedAtVal").style.display = "none";
-}
+	let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
+	if(archivedat.length > 0) {
+		document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
+				+ archivedat + "\">" + archivedat + "</a>";
+	} else {
+		document.getElementById("ArchivedAtName").style.display = "none";
+		document.getElementById("ArchivedAtVal").style.display = "none";
+	}
 
-let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
-if(xmailfrom.length > 0) {
-	document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
-			+ xmailfrom + "\">" + xmailfrom + "</a>";
-} else {
-	document.getElementById("XMailFromName").style.display = "none";
-	document.getElementById("XMailFromVal").style.display = "none";
-}
+	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
+	if(xmailfrom.length > 0) {
+		document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
+				+ xmailfrom + "\">" + xmailfrom + "</a>";
+	} else {
+		document.getElementById("XMailFromName").style.display = "none";
+		document.getElementById("XMailFromVal").style.display = "none";
+	}
 
-let rcvXMailerHide = false;
-let rcvXMailerHideOpts = await browser.storage.sync.get("xhdr_x_mailer_hide");
-if(rcvXMailerHideOpts && ("xhdr_x_mailer_hide" in rcvXMailerHideOpts)) {
-	rcvXMailerHide = rcvXMailerHideOpts["xhdr_x_mailer_hide"];
-}
-// logObj(rcvXMailerHideOpts, "rcvXMailerHideOpts")
-// console.log("--- option - rcvXMailerHide: " + rcvXMailerHide);
+	let rcvXMailerHide = false;
+	let rcvXMailerHideOpts = await browser.storage.sync.get("xhdr_x_mailer_hide");
+	if(rcvXMailerHideOpts && ("xhdr_x_mailer_hide" in rcvXMailerHideOpts)) {
+		rcvXMailerHide = rcvXMailerHideOpts["xhdr_x_mailer_hide"];
+	}
+	// logObj(rcvXMailerHideOpts, "rcvXMailerHideOpts")
+	// console.log("--- option - rcvXMailerHide: " + rcvXMailerHide);
 
-if (rcvXMailerHide == false) {
-	let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
-	if(xmailer.length > 0) {
-		document.getElementById("XMailerVal").textContent = xmailer;
+	if (rcvXMailerHide == false) {
+		let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
+		if(xmailer.length > 0) {
+			document.getElementById("XMailerVal").textContent = xmailer;
+		} else {
+			document.getElementById("XMailerName").style.display = "none";
+			document.getElementById("XMailerVal").style.display = "none";
+		}
 	} else {
 		document.getElementById("XMailerName").style.display = "none";
 		document.getElementById("XMailerVal").style.display = "none";
 	}
-} else {
-	document.getElementById("XMailerName").style.display = "none";
-	document.getElementById("XMailerVal").style.display = "none";
+
+	let rcvReceivedHide = false;
+	let rcvReceivedHideOpts = await browser.storage.sync.get("xhdr_received_hide");
+	if(rcvReceivedHideOpts && ("xhdr_received_hide" in rcvReceivedHideOpts)) {
+		rcvReceivedHide = rcvReceivedHideOpts["xhdr_received_hide"];
+	}
+
+	if (rcvReceivedHide == true) {
+		return
+	}
+
+	let rcvCount = 3;
+	let rcvCountOpts = await browser.storage.sync.get("xhdr_received_count");
+	if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
+		rcvCount = Number(rcvCountOpts["xhdr_received_count"]);
+	}
+
+	// logObj(rcvCountOpts, "rcvCountOpts")
+	// console.log("--- option - received count: " + rcvCount);
+
+	if(rcvCount > full.headers.received.length) {
+		rcvCount = full.headers.received.length;
+	}
+
+	let i = 0;
+	for (i = 0; i < rcvCount; i++) {
+		document.getElementById("ContainerVal").innerHTML +=
+			"        <div id=\"Received" + i + "Name\" class=\"header\">Received[" + i + "]:</div>\n"
+			+ "        <div id=\"Received" + i + "Val\" class=\"content\">"
+			+ full.headers.received[i] + "</div>\n";
+	}
 }
 
-let rcvCount = 3;
-let rcvCountOpts = await browser.storage.sync.get("xhdr_received_count");
-if(rcvCountOpts && ("xhdr_received_count" in rcvCountOpts)) {
-	rcvCount = Number(rcvCountOpts["xhdr_received_count"]);
-}
-
-// logObj(rcvCountOpts, "rcvCountOpts")
-// console.log("--- option - received count: " + rcvCount);
-
-if(rcvCount > full.headers.received.length) {
-	rcvCount = full.headers.received.length;
-}
-
-let i = 0;
-for (i = 0; i < rcvCount; i++) {
-	document.getElementById("ContainerVal").innerHTML +=
-		"        <div id=\"Received" + i + "Name\" class=\"header\">Received[" + i + "]:</div>\n"
-		+ "        <div id=\"Received" + i + "Val\" class=\"content\">"
-		+ full.headers.received[i] + "</div>\n";
-}
+showXHeaders()
