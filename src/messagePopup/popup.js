@@ -29,6 +29,8 @@ function getHeaderIfExists(hlist, hname, idx, mode)
 	if(mode == 1 && hval.length > 2) {
 		if(hval[0] == '<' && hval[hval.length - 1] == '>') {
 			hval = hval.slice(1, -1);
+		} else if(hval[0] == '<') {
+			hval = hval.slice(1);
 		}
 	}
 
@@ -69,6 +71,15 @@ async function showXHeaders()
 	} else {
 		document.getElementById("ArchivedAtName").style.display = "none";
 		document.getElementById("ArchivedAtVal").style.display = "none";
+	}
+
+	let listarchive = getHeaderIfExists(full.headers, "list-archive", 0, 1);
+	if(listarchive.length > 0) {
+		document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
+				+ listarchive + "\">" + listarchive + "</a>";
+	} else {
+		document.getElementById("ListArchiveName").style.display = "none";
+		document.getElementById("ListArchiveVal").style.display = "none";
 	}
 
 	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
