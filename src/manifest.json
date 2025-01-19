@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Show eXtra Headers",
     "description": "Show extra headers for current email message",
-    "version": "1.0",
+    "version": "1.4",
     "author": "Daniel-Constantin Mierla <miconda@gmail.com>",
     "browser_specific_settings": {
         "gecko": {
