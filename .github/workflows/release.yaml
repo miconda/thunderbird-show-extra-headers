@@ -26,11 +26,7 @@ jobs:
           path: ${{ steps.web-ext-build.outputs.target }}
 
       - name: "Upload Release Asset"
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
-          upload_url: ${{ steps.web-ext-build.outputs.target }}
-          asset_name: thunderbird-xhdrs-extension.xpi
-          asset_content_type: application/zip
+          files: ${{ steps.web-ext-build.outputs.target }}
