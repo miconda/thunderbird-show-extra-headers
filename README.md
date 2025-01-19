@@ -11,6 +11,7 @@ The headers that are shown:
 * `X-MailFrom` - the sender of the message (link)
 * `X-Mailer` - the application that sent the message
 * `Archived-At` - the link to the mailing list archive for the message (link)
+* `List-Archive` - the link to the mailing list archive (link)
 * `Received` - the first `Received` headers (number configurable, default three)
 
 Not all headers are present in a message, being a matter of the email client
