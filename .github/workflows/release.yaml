@@ -32,6 +32,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.web-ext-build.outputs.target }}
-          asset_path: ./thunderbird-xhdrs-extension.xpi
           asset_name: thunderbird-xhdrs-extension.xpi
           asset_content_type: application/zip
