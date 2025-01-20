@@ -52,7 +52,7 @@ the extension has to be loaded again.
 
 Download the `.xpi` file from the latest release assets:
 
-  - https://github.com/miconda/thunderbird-show-extra-headers/releases
+* [https://github.com/miconda/thunderbird-show-extra-headers/releases](https://github.com/miconda/thunderbird-show-extra-headers/releases)
 
 Open up the `Add-ons Manager` from the three-bars menu, select `Extensions`
 on the left-hand side and click the gear to select `Debug Add-ons`.
@@ -69,16 +69,11 @@ When installed, a new button named `H-Hdrs` appears in the buttons list at the
 top of the `Message Pane`. Clicking on it shows the pop up  with extra headers
 for the current message.
 
-## To-Do
-
-Ideas for the future (no commitment to be implemented):
-
-* [x] do not show headers that are not in the message
-* [ ] configuration page for the list of the headers to be shown
+## Contributing
 
 Contributions are welcome, use pull requests to propose them:
 
-* https://github.com/miconda/thunderbird-show-extra-headers/pulls
+* [https://github.com/miconda/thunderbird-show-extra-headers/pulls](https://github.com/miconda/thunderbird-show-extra-headers/pulls)
 
 ## License
 
