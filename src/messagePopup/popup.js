@@ -64,20 +64,33 @@ async function showXHeaders()
 	}
 	document.getElementById("EnvelopeToVal").textContent = envelopeto;
 
-	let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
-	if(archivedat.length > 0) {
-		document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
-				+ archivedat + "\">" + archivedat + "</a>";
+	let lArchiveHide = false;
+	let lArchiveHideOpts = await browser.storage.sync.get("xhdr_l_archive_hide");
+	if(lArchiveHideOpts && ("xhdr_l_archive_hide" in lArchiveHideOpts)) {
+		lArchiveHide = lArchiveHideOpts["xhdr_l_archive_hide"];
+	}
+
+	if (lArchiveHide == false) {
+		let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
+		if(archivedat.length > 0) {
+			document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
+					+ archivedat + "\">" + archivedat + "</a>";
+		} else {
+			document.getElementById("ArchivedAtName").style.display = "none";
+			document.getElementById("ArchivedAtVal").style.display = "none";
+		}
+
+		let listarchive = getHeaderIfExists(full.headers, "list-archive", 0, 1);
+		if(listarchive.length > 0) {
+			document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
+					+ listarchive + "\">" + listarchive + "</a>";
+		} else {
+			document.getElementById("ListArchiveName").style.display = "none";
+			document.getElementById("ListArchiveVal").style.display = "none";
+		}
 	} else {
 		document.getElementById("ArchivedAtName").style.display = "none";
 		document.getElementById("ArchivedAtVal").style.display = "none";
-	}
-
-	let listarchive = getHeaderIfExists(full.headers, "list-archive", 0, 1);
-	if(listarchive.length > 0) {
-		document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
-				+ listarchive + "\">" + listarchive + "</a>";
-	} else {
 		document.getElementById("ListArchiveName").style.display = "none";
 		document.getElementById("ListArchiveVal").style.display = "none";
 	}
