@@ -13,6 +13,40 @@ function logObj(obj, name)
 }
 
 /**
+ * @param {*} urlString - the URL to check
+ * @returns true if URL input is valid
+ */
+function isValidURL(urlString)
+{
+	var inputElement = document.createElement('input');
+	inputElement.type = 'url';
+	inputElement.value = urlString;
+
+	if (!inputElement.checkValidity()) {
+	  return false;
+	} else {
+	  return true;
+	}
+}
+
+/**
+ * @param {*} emailString - the email to check
+ * @returns true if email input is valid
+ */
+function isValidEmail(emailString)
+{
+	var inputElement = document.createElement('input');
+	inputElement.type = 'email';
+	inputElement.value = emailString;
+
+	if (!inputElement.checkValidity()) {
+	  return false;
+	} else {
+	  return true;
+	}
+}
+
+/**
  * @param {*} hlist - headers list
  * @param {*} hname - header name
  * @param {*} idx - index of the header
@@ -73,8 +107,12 @@ async function showXHeaders()
 	if (lArchiveHide == false) {
 		let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
 		if(archivedat.length > 0) {
-			document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
-					+ archivedat + "\">" + archivedat + "</a>";
+			if(isValidURL(archivedat)) {
+				document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
+						+ archivedat + "\">" + archivedat + "</a>";
+			} else {
+				document.getElementById("ArchivedAtVal").textContent = archivedat;
+			}
 		} else {
 			document.getElementById("ArchivedAtName").style.display = "none";
 			document.getElementById("ArchivedAtVal").style.display = "none";
@@ -82,8 +120,12 @@ async function showXHeaders()
 
 		let listarchive = getHeaderIfExists(full.headers, "list-archive", 0, 1);
 		if(listarchive.length > 0) {
-			document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
-					+ listarchive + "\">" + listarchive + "</a>";
+			if(isValidURL(listarchive)) {
+				document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
+						+ listarchive + "\">" + listarchive + "</a>";
+			} else {
+				document.getElementById("ListArchiveVal").textContent = listarchive
+			}
 		} else {
 			document.getElementById("ListArchiveName").style.display = "none";
 			document.getElementById("ListArchiveVal").style.display = "none";
@@ -97,8 +139,12 @@ async function showXHeaders()
 
 	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
 	if(xmailfrom.length > 0) {
-		document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
-				+ xmailfrom + "\">" + xmailfrom + "</a>";
+		if(isValidEmail(xmailfrom)) {
+			document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
+					+ xmailfrom + "\">" + xmailfrom + "</a>";
+		} else {
+			document.getElementById("XMailFromVal").textContent = xmailfrom
+		}
 	} else {
 		document.getElementById("XMailFromName").style.display = "none";
 		document.getElementById("XMailFromVal").style.display = "none";
