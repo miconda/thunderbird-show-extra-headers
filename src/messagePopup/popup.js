@@ -98,6 +98,40 @@ async function showXHeaders()
 	}
 	document.getElementById("EnvelopeToVal").textContent = envelopeto;
 
+	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
+	if(xmailfrom.length > 0) {
+		if(isValidEmail(xmailfrom)) {
+			document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
+					+ xmailfrom + "\">" + xmailfrom + "</a>";
+		} else {
+			document.getElementById("XMailFromVal").textContent = xmailfrom
+		}
+	} else {
+		document.getElementById("XMailFromName").style.display = "none";
+		document.getElementById("XMailFromVal").style.display = "none";
+	}
+
+	let rcvXMailerHide = false;
+	let rcvXMailerHideOpts = await browser.storage.sync.get("xhdr_x_mailer_hide");
+	if(rcvXMailerHideOpts && ("xhdr_x_mailer_hide" in rcvXMailerHideOpts)) {
+		rcvXMailerHide = rcvXMailerHideOpts["xhdr_x_mailer_hide"];
+	}
+	// logObj(rcvXMailerHideOpts, "rcvXMailerHideOpts")
+	// console.log("--- option - rcvXMailerHide: " + rcvXMailerHide);
+
+	if (rcvXMailerHide == false) {
+		let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
+		if(xmailer.length > 0) {
+			document.getElementById("XMailerVal").textContent = xmailer;
+		} else {
+			document.getElementById("XMailerName").style.display = "none";
+			document.getElementById("XMailerVal").style.display = "none";
+		}
+	} else {
+		document.getElementById("XMailerName").style.display = "none";
+		document.getElementById("XMailerVal").style.display = "none";
+	}
+
 	let lArchiveHide = false;
 	let lArchiveHideOpts = await browser.storage.sync.get("xhdr_l_archive_hide");
 	if(lArchiveHideOpts && ("xhdr_l_archive_hide" in lArchiveHideOpts)) {
@@ -135,40 +169,6 @@ async function showXHeaders()
 		document.getElementById("ArchivedAtVal").style.display = "none";
 		document.getElementById("ListArchiveName").style.display = "none";
 		document.getElementById("ListArchiveVal").style.display = "none";
-	}
-
-	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
-	if(xmailfrom.length > 0) {
-		if(isValidEmail(xmailfrom)) {
-			document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
-					+ xmailfrom + "\">" + xmailfrom + "</a>";
-		} else {
-			document.getElementById("XMailFromVal").textContent = xmailfrom
-		}
-	} else {
-		document.getElementById("XMailFromName").style.display = "none";
-		document.getElementById("XMailFromVal").style.display = "none";
-	}
-
-	let rcvXMailerHide = false;
-	let rcvXMailerHideOpts = await browser.storage.sync.get("xhdr_x_mailer_hide");
-	if(rcvXMailerHideOpts && ("xhdr_x_mailer_hide" in rcvXMailerHideOpts)) {
-		rcvXMailerHide = rcvXMailerHideOpts["xhdr_x_mailer_hide"];
-	}
-	// logObj(rcvXMailerHideOpts, "rcvXMailerHideOpts")
-	// console.log("--- option - rcvXMailerHide: " + rcvXMailerHide);
-
-	if (rcvXMailerHide == false) {
-		let xmailer = getHeaderIfExists(full.headers, "x-mailer", 0, 0);
-		if(xmailer.length > 0) {
-			document.getElementById("XMailerVal").textContent = xmailer;
-		} else {
-			document.getElementById("XMailerName").style.display = "none";
-			document.getElementById("XMailerVal").style.display = "none";
-		}
-	} else {
-		document.getElementById("XMailerName").style.display = "none";
-		document.getElementById("XMailerVal").style.display = "none";
 	}
 
 	let rcvReceivedHide = false;
