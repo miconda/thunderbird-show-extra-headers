@@ -64,6 +64,25 @@ function getANode(aURL, aText)
 }
 
 /**
+ * @param {*} vId - id for div node
+ * @param {*} vClass - class for div node
+ * @param {*} vText - text for the div node
+ * @returns the <div> node
+ */
+function getDivNode(vId, vClass, vText)
+{
+	var div = document.createElement('div');
+
+	div.id = vId;
+	div.className = vClass;
+
+	var nodeText = document.createTextNode(vText);
+	div.appendChild(nodeText);
+
+	return div;
+}
+
+/**
  * @param {*} hlist - headers list
  * @param {*} hname - header name
  * @param {*} idx - index of the header
@@ -213,10 +232,10 @@ async function showXHeaders()
 
 	let i = 0;
 	for (i = 0; i < rcvCount; i++) {
-		document.getElementById("ContainerVal").innerHTML +=
-			"        <div id=\"Received" + i + "Name\" class=\"header\">Received[" + i + "]:</div>\n"
-			+ "        <div id=\"Received" + i + "Val\" class=\"content\">"
-			+ full.headers.received[i] + "</div>\n";
+		var divN = getDivNode("Received" + i + "Name", "header", "Received[" + i + "]:");
+		document.getElementById("ContainerVal").appendChild(divN);
+		divN = getDivNode("Received" + i + "Val", "content", full.headers.received[i]);
+		document.getElementById("ContainerVal").appendChild(divN);
 	}
 }
 
