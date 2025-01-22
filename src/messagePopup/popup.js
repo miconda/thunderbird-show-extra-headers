@@ -47,6 +47,23 @@ function isValidEmail(emailString)
 }
 
 /**
+ * @param {*} aURL - URL for <a> href
+ * @param {*} aText - text for <a> node
+ * @returns the <a> node
+ */
+function getANode(aURL, aText)
+{
+	var a = document.createElement('a');
+	var nodeText = document.createTextNode(aText);
+
+	a.appendChild(nodeText);
+	a.target = "_blank";
+	a.href = aURL;
+
+	return a;
+}
+
+/**
  * @param {*} hlist - headers list
  * @param {*} hname - header name
  * @param {*} idx - index of the header
@@ -101,8 +118,8 @@ async function showXHeaders()
 	let xmailfrom = getHeaderIfExists(full.headers, "x-mailfrom", 0, 1);
 	if(xmailfrom.length > 0) {
 		if(isValidEmail(xmailfrom)) {
-			document.getElementById("XMailFromVal").innerHTML = "<a target=\"_blank\" href=\"mailto:"
-					+ xmailfrom + "\">" + xmailfrom + "</a>";
+			var a = getANode("mailto:" + xmailfrom, xmailfrom);
+			document.getElementById("XMailFromVal").appendChild(a);
 		} else {
 			document.getElementById("XMailFromVal").textContent = xmailfrom
 		}
@@ -142,8 +159,8 @@ async function showXHeaders()
 		let archivedat = getHeaderIfExists(full.headers, "archived-at", 0, 1);
 		if(archivedat.length > 0) {
 			if(isValidURL(archivedat)) {
-				document.getElementById("ArchivedAtVal").innerHTML = "<a target=\"_blank\" href=\""
-						+ archivedat + "\">" + archivedat + "</a>";
+				var a = getANode(archivedat, archivedat);
+				document.getElementById("ArchivedAtVal").appendChild(a);
 			} else {
 				document.getElementById("ArchivedAtVal").textContent = archivedat;
 			}
@@ -155,8 +172,8 @@ async function showXHeaders()
 		let listarchive = getHeaderIfExists(full.headers, "list-archive", 0, 1);
 		if(listarchive.length > 0) {
 			if(isValidURL(listarchive)) {
-				document.getElementById("ListArchiveVal").innerHTML = "<a target=\"_blank\" href=\""
-						+ listarchive + "\">" + listarchive + "</a>";
+				var a = getANode(listarchive, listarchive);
+				document.getElementById("ListArchiveVal").appendChild(a);
 			} else {
 				document.getElementById("ListArchiveVal").textContent = listarchive
 			}
