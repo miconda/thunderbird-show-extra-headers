@@ -49,7 +49,7 @@ the extension has to be loaded again.
 An alternative is to create an `.xpi` (which is a zip archive) file with the files
 in the `src/` folder.
 
-```
+``` shell
 cd src/
 zip -r ../show_extra_headers.xpi .
 ```
@@ -80,7 +80,7 @@ the extension has to be loaded again.
 
 ## Usage
 
-When installed, a new button named `H-Hdrs` appears in the buttons list at the
+When installed, a new button named `X-Hdrs` appears in the buttons list at the
 top of the `Message Pane`. Clicking on it shows the pop up  with extra headers
 for the current message.
 
