@@ -25,9 +25,7 @@ Screenshot with the extension activated and the `X-Hdrs` button pressed.
 
 ## Installation
 
-The extension requires at least `Thunderbird v128.0`. Not being yet in the official
-extensions repository, it can be installed temporarily (i.e., it is needed to
-install it again after Thunderbird restart).
+The extension requires at least `Thunderbird v128.0`.
 
 ### Temporarily Install From Git Repository
 
@@ -48,11 +46,28 @@ from within the `thunderbird-show-extra-headers/src/` project folder.
 This installs the add-on for the current session only, upon Thunderbird restart
 the extension has to be loaded again.
 
-### Temporarily Install From XPI File
+An alternative is to create an `.xpi` (which is a zip archive) file with the files
+in the `src/` folder.
+
+```
+cd src/
+zip -r ../show_extra_headers.xpi .
+```
+
+Then the `.xpi` file can be loaded as temporary add-on, notes about it can be found
+in the next section.
+
+### Install From XPI File
 
 Download the `.xpi` file from the latest release assets:
 
 * [https://github.com/miconda/thunderbird-show-extra-headers/releases](https://github.com/miconda/thunderbird-show-extra-headers/releases)
+
+The files suffixed with `-tb` (e.g., `show_extra_headers-1.5-tb.xpi`) are signed
+by Thunderbird and should permit standard add-on installation.
+
+If not accepted, temporary add-on installation should be done following the
+next steps.
 
 Open up the `Add-ons Manager` from the three-bars menu, select `Extensions`
 on the left-hand side and click the gear to select `Debug Add-ons`.
